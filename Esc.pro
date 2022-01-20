@@ -8,6 +8,8 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        controller_half_bridge.cpp \
+        controller_three_phase.cpp \
         esc.cpp \
         i2cdev.cpp \
         main.cpp \
@@ -19,9 +21,21 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    constants.h \
+    controller_half_bridge.h \
+    controller_three_phase.h \
     esc.h \
     i2cdev.h \
     sinarray.h
+
+
+QMAKE_INCDIR += /usr/local/include
+QMAKE_LIBDIR += /usr/lib
+QMAKE_LIBDIR += /usr/local/lib
+QMAKE_LIBDIR += /usr/lib/x86_64-linux-gnu
+INCLUDEPATH += /usr/local/include
+
+LIBS +=  -lwiringPi -li2c
 
 #sudo apt-get install libi2c-dev
 #sudo apt-get install libwiringpi-dev
