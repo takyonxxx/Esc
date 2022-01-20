@@ -85,7 +85,7 @@ void Esc::run()
     while (!m_stop)
     {
         const std::lock_guard<std::mutex> lock(mutex_loop);
-        qDebug() << "running";
+        setPwm();
         QThread::msleep(1000);
     }
 }

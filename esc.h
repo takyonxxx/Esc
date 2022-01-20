@@ -4,9 +4,9 @@
 #include <QDebug>
 #include <QThread>
 
-//#include "i2cdev.h"
-//#include <softPwm.h>
-//#include <wiringPi.h>
+#include "i2cdev.h"
+#include <softPwm.h>
+#include <wiringPi.h>
 
 
 //physcal pins

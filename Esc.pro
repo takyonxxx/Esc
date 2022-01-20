@@ -9,6 +9,7 @@ CONFIG -= app_bundle
 
 SOURCES += \
         esc.cpp \
+        i2cdev.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -17,4 +18,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    esc.h
+    esc.h \
+    i2cdev.h
+
+#sudo apt-get install libi2c-dev
+#sudo apt-get install libwiringpi-dev
