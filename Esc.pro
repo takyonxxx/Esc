@@ -10,7 +10,8 @@ CONFIG -= app_bundle
 SOURCES += \
         esc.cpp \
         i2cdev.cpp \
-        main.cpp
+        main.cpp \
+        sinarray.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -19,7 +20,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     esc.h \
-    i2cdev.h
+    i2cdev.h \
+    sinarray.h
 
 #sudo apt-get install libi2c-dev
 #sudo apt-get install libwiringpi-dev
