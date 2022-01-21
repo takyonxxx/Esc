@@ -67,8 +67,6 @@ phase ControllerHalfBridge::clacPhaseState(phase inPhase, int freq)
 
 void ControllerHalfBridge::setPhaseState(phase &inPhase)
 {
-    qDebug() << inPhase.nextState;
-
     switch (inPhase.nextState)
     {
         case high: {
