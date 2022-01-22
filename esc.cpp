@@ -18,7 +18,7 @@ Esc::Esc(QObject *parent) : QThread(parent)
     else
     {
         const int MOTOR_PIN_LIST[6] = { PWMHA, PWMLA, PWMHB, PWMLB, PWMHC, PWMLC };
-        m_controllerHalfBridge = new ControllerHalfBridge(MOTOR_PIN_LIST);
+        m_controllerHalfBridge = new ControllerFullBridge(MOTOR_PIN_LIST);
     }
 }
 

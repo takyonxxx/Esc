@@ -8,8 +8,8 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        controller_full_bridge.cpp \
         controller_half_bridge.cpp \
-        controller_three_phase.cpp \
         esc.cpp \
         i2cdev.cpp \
         main.cpp \
@@ -22,8 +22,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     constants.h \
+    controller_full_bridge.h \
     controller_half_bridge.h \
-    controller_three_phase.h \
     esc.h \
     i2cdev.h \
     sinarray.h

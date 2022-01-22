@@ -3,7 +3,7 @@
 
 #include <QThread>
 #include "constants.h"
-#include "controller_half_bridge.h"
+#include "controller_full_bridge.h"
 
 class Esc: public QThread
 {
@@ -19,7 +19,7 @@ private:
     bool initPwm();    
     std::mutex mutex_loop;
     bool m_stop{false};
-    ControllerHalfBridge *m_controllerHalfBridge{};
+    ControllerFullBridge *m_controllerHalfBridge{};
 
     static Esc *theInstance_;
 
