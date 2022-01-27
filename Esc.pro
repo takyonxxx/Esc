@@ -1,4 +1,5 @@
 QT -= gui
+QT += bluetooth
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -11,21 +12,20 @@ SOURCES += \
         controller_full_bridge.cpp \
         controller_half_bridge.cpp \
         esc.cpp \
+        gattserver.cpp \
         i2cdev.cpp \
         main.cpp \
+        message.cpp \
         sinarray.cpp
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
     constants.h \
     controller_full_bridge.h \
     controller_half_bridge.h \
     esc.h \
+    gattserver.h \
     i2cdev.h \
+    message.h \
     sinarray.h
 
 
@@ -36,6 +36,11 @@ QMAKE_LIBDIR += /usr/lib/x86_64-linux-gnu
 INCLUDEPATH += /usr/local/include
 
 LIBS +=  -lwiringPi -li2c
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
 
 #sudo apt-get install libi2c-dev
 #sudo apt-get install libwiringpi-dev

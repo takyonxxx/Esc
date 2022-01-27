@@ -2,10 +2,12 @@
 #define CONSTANTS_H
 
 #include <QDebug>
+
 #include <math.h>
 #include "i2cdev.h"
 #include <softPwm.h>
 #include <wiringPi.h>
+#include <message.h>
 
 //physcal pins
 
