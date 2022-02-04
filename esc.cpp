@@ -19,9 +19,8 @@ Esc::Esc(QObject *parent) : QThread(parent)
         return;
     }
     else
-    {
-        const int MOTOR_PIN_LIST[6] = { PWMHA, PWMLA, PWMHB, PWMLB, PWMHC, PWMLC };
-        m_controllerHalfBridge = new ControllerFullBridge(MOTOR_PIN_LIST);
+    {       
+        m_controllerHalfBridge = new ControllerHalfBridge();
     }
 
     gattServer = GattServer::getInstance();
@@ -83,7 +82,7 @@ void Esc::onDataReceived(QByteArray data)
         {
         case mSpeed:
         {
-            m_motorSpeed = str_value.toInt() * 10.24;
+            m_motorSpeed = str_value.toInt();
             break;
         }
         default:
@@ -170,7 +169,7 @@ bool Esc::initPwm()
     }
     else
     {
-        qDebug("Pwm Setup ok.");
+        qDebug("WiringPiSetup Setup ok.");
     }
 
     return true;
@@ -183,12 +182,12 @@ void Esc::run()
         const std::lock_guard<std::mutex> lock(mutex_loop);
 
         if (m_controllerHalfBridge)
-        {            
-            double torque = 1;
-            //map(speed, 0, 1023, 50, 500);
-            m_controllerHalfBridge->spinCW(int(m_motorSpeed), torque);
+        {
+            //auto speed = map(m_motorSpeed, 0, 1023, 0, 255);
+            m_controllerHalfBridge->write(m_motorSpeed);
+            //m_controllerFullBridge->spinCW(int(m_motorSpeed), 1);
         }
 
-        QThread::msleep(15);
+        QThread::msleep(5);
     }
 }

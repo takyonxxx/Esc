@@ -5,6 +5,7 @@
 #include "constants.h"
 #include "gattserver.h"
 #include "controller_full_bridge.h"
+#include "controller_half_bridge.h"
 
 class Esc: public QThread
 {
@@ -28,7 +29,8 @@ private:
     std::mutex mutex_loop;
     bool m_stop{false};
     float m_motorSpeed{0};
-    ControllerFullBridge *m_controllerHalfBridge{};
+    ControllerFullBridge *m_controllerFullBridge{};
+    ControllerHalfBridge *m_controllerHalfBridge{};
     GattServer *gattServer{};
     Message message{};
 

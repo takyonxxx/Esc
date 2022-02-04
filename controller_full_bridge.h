@@ -1,5 +1,14 @@
 #include "constants.h"
 
+#define PWMHA   31
+#define PWMLA   32
+
+#define PWMHB   35
+#define PWMLB   36
+
+#define PWMHC   37
+#define PWMLC   38
+
 #pragma once
 enum phaseState
 {	

@@ -1,39 +1,49 @@
 #include "controller_half_bridge.h"
 
-void ControllerHalfBridge::attach(int p1, int p2, int p3)
+ControllerHalfBridge::ControllerHalfBridge()
 {
-  // Set output pins
-  pins[0] = p1;
-  pins[1] = p2;
-  pins[2] = p3;
-  pinMode(p1, OUTPUT);
-  pinMode(p2, OUTPUT);
-  pinMode(p3, OUTPUT);
+    pinMode(PWMA, OUTPUT);
+    pinMode(PWMB, OUTPUT);
+    pinMode(PWMC, OUTPUT);
+    printf("Set Gpio PWM pinModes to output ok.\n");
+    pwmLimit = 254;
 
-  // Generate sin table for faster control
-  sinArray.generate();
+    softPwmCreate(PWMA,0,pwmLimit);
+    softPwmCreate(PWMB,0,pwmLimit);
+    softPwmCreate(PWMC,0,pwmLimit);
+
+    qDebug("SoftPwm Setup ok.");
+
+    // Generate sin table for faster control
+    sinArray.generate();
+}
+
+ControllerHalfBridge::~ControllerHalfBridge()
+{
+    softPwmWrite(PWMA, 0);
+    softPwmWrite(PWMB, 0);
+    softPwmWrite(PWMC, 0);
 }
 
 void ControllerHalfBridge::write(float angle)
 {
-  float real_angle = n_cycles * angle;
+    float real_angle = n_cycles * angle;
 
-  int pwm1 = (float)power * (sinArray.getSinDegree(real_angle) + 1.) / 2.;
-  int pwm2 = (float)power * (sinArray.getSinDegree(real_angle + 120) + 1.) / 2.;
-  int pwm3 = (float)power * (sinArray.getSinDegree(real_angle + 240) + 1.) / 2.;
+    int pwm1 = (float)power * (sinArray.getSinDegree(real_angle) + 1.) / 2.;
+    int pwm2 = (float)power * (sinArray.getSinDegree(real_angle + 120) + 1.) / 2.;
+    int pwm3 = (float)power * (sinArray.getSinDegree(real_angle + 240) + 1.) / 2.;
 
-  // Set PWMs
-  analogWrite(pins[0], pwm1);
-  analogWrite(pins[1], pwm2);
-  analogWrite(pins[2], pwm3);
+    softPwmWrite(PWMA, pwm1);
+    softPwmWrite(PWMB, pwm2);
+    softPwmWrite(PWMC, pwm3);
 }
 
 void ControllerHalfBridge::setOutputPower(int p)
 {
-  power = p;
+    power = p;
 }
 
 void ControllerHalfBridge::setCycles(int n)
 {
-  n_cycles = n;
+    n_cycles = n;
 }

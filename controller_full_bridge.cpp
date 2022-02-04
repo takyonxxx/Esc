@@ -66,7 +66,7 @@ phase ControllerFullBridge::clacPhaseState(phase inPhase, int freq)
 }
 
 void ControllerFullBridge::setPhaseState(phase &inPhase)
-{
+{        
     switch (inPhase.nextState)
     {
         case high: {

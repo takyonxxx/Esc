@@ -9,17 +9,6 @@
 #include <wiringPi.h>
 #include <message.h>
 
-//physcal pins
-
-#define PWMHA   31
-#define PWMLA   32
-
-#define PWMHB   35
-#define PWMLB   36
-
-#define PWMHC   37
-#define PWMLC   38
-
 // Arduino math function, Re-maps a number from one range to another.
 static long map(long x, long in_min, long in_max, long out_min, long out_max)
 {

@@ -81,7 +81,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>150</height>
+          <height>120</height>
          </size>
         </property>
         <property name="font">
@@ -128,7 +128,7 @@ QScrollBar::add-page:horizontal {
 }</string>
         </property>
         <property name="maximum">
-         <number>100</number>
+         <number>255</number>
         </property>
         <property name="pageStep">
          <number>1</number>

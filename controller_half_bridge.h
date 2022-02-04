@@ -2,6 +2,10 @@
 #define CONTROLLER_THREE_PHASE_h
 
 #include "sinarray.h"
+#include <softPwm.h>
+#define PWMA  36
+#define PWMB  38
+#define PWMC  40
 
 #ifndef PWMRANGE     //PWMRANGE is defined on some microcontrollers such as ESP8266
 #define PWMRANGE 255 // Default for ATMEGA328
@@ -10,16 +14,18 @@
 class ControllerHalfBridge
 {
 public:
-  void attach(int p1, int p2, int p3); // Initialization
-  void write(float angle);             // Move to a angle in degree
-  void setOutputPower(int p);          // Secont a power multiplier between 0 (min) and PWMRANGE (max)
-  void setCycles(int n);               // Set how many sinusoide period are needed for a revolution
+    ControllerHalfBridge();
+    ~ControllerHalfBridge();
+
+    void write(float angle);             // Move to a angle in degree
+    void setOutputPower(int p);          // Secont a power multiplier between 0 (min) and PWMRANGE (max)
+    void setCycles(int n);               // Set how many sinusoide period are needed for a revolution
 
 private:
-  SinArray sinArray;
-  int pins[3];
-  int power = PWMRANGE;
-  int n_cycles = 8;
+    SinArray sinArray;
+    int pwmLimit{0};
+    int power = PWMRANGE;
+    int n_cycles = 8;
 };
 
 /*int val = 512; // reads the value of the potentiometer (value between 0 and 1023)
