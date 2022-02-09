@@ -13,6 +13,7 @@ ControllerFullBridge::ControllerFullBridge(const int pinList[], bool enable_delt
     BB2 = pinList[3];
     CC1 = pinList[4];
     CC2 = pinList[5];
+
     adc = new MCP3008(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN);
 
     this->enable_delta = enable_delta;
@@ -23,10 +24,6 @@ ControllerFullBridge::ControllerFullBridge(const int pinList[], bool enable_delt
     pinMode(pinList[3], OUTPUT);
     pinMode(pinList[4], OUTPUT);
     pinMode(pinList[5], OUTPUT);
-
-    pinMode(emfA,INPUT);
-    pinMode(emfB,INPUT);
-    pinMode(emfC,INPUT);
 }
 
 
