@@ -1,69 +1,45 @@
 #include "constants.h"
+#include "MCP3008.h"
 
 #define PWMHA   31
-#define PWMLA   32
+#define PWMLA   33
 
 #define PWMHB   35
-#define PWMLB   36
+#define PWMLB   37
 
-#define PWMHC   37
-#define PWMLC   38
+#define PWMHC   38
+#define PWMLC   40
 
 #pragma once
-enum phaseState
-{	
-	high, off, low
-};
 
-struct phase
-{
-	phaseState nextState;
-	phaseState currentState;
-	short phState;
-	int phaseNum;
-	int phaseHPin;
-	int phaseLPin;
-};
-
+static int delta= 0;
+static int last_delta= -1;
 
 class ControllerFullBridge
 {
 public:
     ControllerFullBridge();
-	// pinList: WireXH, WireXL, WireYH, WireYL, WireZH, WireZL;
-    ControllerFullBridge(const int pinList[]);
-	
-	
-	int getPosition();
-	void spinCW(int speed, float torque);
-
-
-	phase clacPhaseState(phase inPhase, int freq);
-	void setPhaseState(phase &inPhase);
+    ControllerFullBridge(const int pinList[], bool enable_delta);
+    void calculate(unsigned long delay);
 
 private:
 
-	const int SWITCH_BUFFER = 1;
-	const int DUTY_CYCLE_FREQ = 100; // microSeconds
-	const int INTERVAL = 10000; // microSeconds
-	
-	double torque = 1;
-	
+    MCP3008 *adc{};
 
+    unsigned long previousMillis = 0;
 	
-	int WireYH;
-	int WireYL;
-	int WireZH;
-	int WireZL;
+    bool enable_delta{true};
 
-	phase phaseX;
-	phase phaseY;
-	phase phaseZ;
+    int AA1, AA2, BB1, BB2, CC1, CC2;
 
-	//unsigned int time = 0;
+    int emfA=0;
+    int emfB=1;
+    int emfC=2;
 
-	
-	
-
+    int fase=1;
+    int emA=0;
+    int emB=0;
+    int emC=0;
+    int sum=0;
 };
 

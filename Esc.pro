@@ -9,6 +9,7 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        MCP3008.cpp \
         controller_full_bridge.cpp \
         controller_half_bridge.cpp \
         esc.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
         sinarray.cpp
 
 HEADERS += \
+    MCP3008.h \
     constants.h \
     controller_full_bridge.h \
     controller_half_bridge.h \

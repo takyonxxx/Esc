@@ -20,7 +20,9 @@ Esc::Esc(QObject *parent) : QThread(parent)
     }
     else
     {       
-        m_controllerHalfBridge = new ControllerHalfBridge();
+        //m_controllerHalfBridge = new ControllerHalfBridge();
+        const int MOTOR_PIN_LIST[6] = {PWMHA, PWMLA, PWMHB, PWMLB, PWMHC,PWMLC};
+        m_controllerFullBridge = new ControllerFullBridge(MOTOR_PIN_LIST, true);
     }
 
     gattServer = GattServer::getInstance();
@@ -35,6 +37,8 @@ Esc::~Esc()
     m_stop = true;
     if (m_controllerHalfBridge)
         delete m_controllerHalfBridge;
+    if (m_controllerFullBridge)
+        delete m_controllerFullBridge;
     delete gattServer;
 }
 
@@ -116,7 +120,6 @@ bool Esc::parseMessage(QByteArray *data, uint8_t &command, QByteArray &value,  u
     MessagePack parsedMessage;
 
     uint8_t* dataToParse = reinterpret_cast<uint8_t*>(data->data());
-    QByteArray returnValue;
 
     if(message.parse(dataToParse, (uint8_t)data->length(), &parsedMessage))
     {
@@ -184,8 +187,9 @@ void Esc::run()
         if (m_controllerHalfBridge)
         {
             //auto speed = map(m_motorSpeed, 0, 1023, 0, 255);
-            m_controllerHalfBridge->write(m_motorSpeed);
-            //m_controllerFullBridge->spinCW(int(m_motorSpeed), 1);
+            //m_controllerHalfBridge->write(m_motorSpeed);
+            auto delay=map(m_motorSpeed,0,255,1,1000); //we obtain the delay speed using the potentiometer
+            m_controllerFullBridge->calculate(delay);
         }
 
         QThread::msleep(5);
